@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>疯狂星期四 V我50</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .kfc-red {
+            background-color: #e4002b;
+        }
+        .kfc-text-red {
+            color: #e4002b;
+        }
+        .chicken-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="min-h-screen flex flex-col items-center justify-center p-4">
+        <div class="w-full max-w-md bg-white rounded-xl shadow-2xl overflow-hidden transition-all duration-300 hover:shadow-lg">
+            <!-- 头部 -->
+            <div class="kfc-red py-6 px-6 text-center">
+                <h1 class="text-3xl font-bold text-white">
+                    <i class="fas fa-drumstick-bite mr-2"></i>疯狂星期四
+                </h1>
+                <p class="text-white opacity-90 mt-2">今天你V50了吗？</p>
+            </div>
+            
+            <!-- 内容 -->
+            <div class="p-6">
+                <div class="flex justify-center mb-6">
+                    <img src="https://img.icons8.com/color/96/000000/fried-chicken.png" 
+                         class="chicken-animation w-24 h-24" 
+                         alt="炸鸡" id="chicken">
+                </div>
+                
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6 rounded">
+                    <p class="text-gray-800 italic" id="crazy-text">
+                        从前有个程序员，996 写代码到凌晨三点，突然想起今天星期四。他颤抖着敲下一行：
+                        <code class="block bg-gray-100 p-2 my-2 rounded">if (today == "Thursday") { System.out.println("V me 50, 立刻马上！"); }</code>
+                        结果电脑蓝屏了，因为人生没有那么多 if...所以，你愿意V我50吗？🌚
+                    </p>
+                </div>
+                
+                <div class="flex flex-col space-y-4">
+                    <button onclick="vMe50()" 
+                            class="kfc-red hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg transition flex items-center justify-center">
+                        <i class="fas fa-hand-holding-usd mr-2"></i> 立即V我50
+                    </button>
+                    
+                    <button onclick="share()" 
+                            class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 px-4 rounded-lg transition flex items-center justify-center">
+                        <i class="fas fa-share-alt mr-2"></i> 分享疯四文学
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 底部 -->
+            <div class="bg-gray-50 px-6 py-4 text-center text-sm text-gray-600">
+                <p>今天是 <span id="today" class="font-semibold kfc-text-red"></span> • 疯狂星期四快乐！</p>
+                <p class="mt-1">记得请我吃原味鸡 🍗</p>
+            </div>
+        </div>
+        
+        <div class="mt-8 text-center text-gray-500 text-xs">
+            <p>友情提示：本页面仅供娱乐，实际优惠以肯德基官方为准</p>
+        </div>
+    </div>
+
+    <script>
+        // 设置日期
+        const days = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+        const today = new Date();
+        document.getElementById('today').textContent = 
+            `${today.getFullYear()}年${today.getMonth()+1}月${today.getDate()}日 ${days[today.getDay()]}`;
+        
+        // 点击V我50
+        function vMe50() {
+            const chicken = document.getElementById('chicken');
+            chicken.classList.add('animate-ping');
+            setTimeout(() => {
+                chicken.classList.remove('animate-ping');
+                alert('感谢老铁送的50！🎉 我这就去买原味鸡~');
+            }, 500);
+        }
+        
+        // 分享功能
+        function share() {
+            const text = document.getElementById('crazy-text').textContent;
+            if (navigator.share) {
+                navigator.share({
+                    title: '疯狂星期四 V我50',
+                    text: text,
+                    url: window.location.href
+                }).catch(err => {
+                    console.log('分享失败:', err);
+                    copyToClipboard(text);
+                });
+            } else {
+                copyToClipboard(text);
+            }
+        }
+        
+        // 复制到剪贴板
+        function copyToClipboard(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert('已复制疯四文学到剪贴板！快去粘贴给朋友吧~');
+        }
+    </script>
+</body>
+</html>
